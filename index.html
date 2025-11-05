@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PetCare - Petshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;font-family:"Poppins",sans-serif;margin:0;padding:0}
+  body{background:#fefaf6;color:#222;min-height:100vh;display:flex;flex-direction:column;}
+  header{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:center;padding:16px 0;font-weight:600;font-size:22px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+  nav{display:flex;gap:10px;justify-content:center;background:#fff2e1;padding:10px;flex-wrap:wrap;box-shadow:0 2px 6px rgba(0,0,0,0.06);}
+  nav button{background:#ffb347;color:#fff;border:0;padding:8px 14px;border-radius:12px;cursor:pointer;transition:.2s;font-weight:600;}
+  nav button:hover{transform:translateY(-2px);background:#ff9900}
+  main{max-width:1100px;margin:16px auto;padding:16px;flex:1}
+  .banner{height:260px;border-radius:12px;overflow:hidden;position:relative;margin-bottom:16px;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+  .banner img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s;}
+  .banner img.active{opacity:1;}
+  section{display:none;animation:fadeIn .28s ease;}
+  section.active{display:block;}
+  form{display:flex;flex-wrap:wrap;gap:10px;background:#fff;padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);align-items:center;}
+  input,select,button,textarea{padding:8px;border-radius:8px;border:1px solid #ddd;}
+  button.primary{background:#ffb347;color:#fff;border:0;font-weight:600;}
+  button.primary:hover{background:#ff9900;}
+  table{width:100%;border-collapse:collapse;margin-top:12px;}
+  th,td{padding:10px;border:1px solid #eee;text-align:left;font-size:14px;}
+  th{background:#fff2e1;}
+  .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.08);margin-bottom:16px;}
+  .muted{color:#666;font-size:13px;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:900px){.banner{height:180px} form input,select{min-width:120px}}
+  .right{margin-left:auto;display:flex;gap:10px;}
+  .chip{background:#fff2e1;padding:6px 12px;border-radius:999px;font-weight:600;margin-right:6px;}
+  .small{font-size:13px;color:#666;}
+  .note{background:#fffbe6;padding:10px;border-radius:8px;border:1px solid #fff2d1;margin-top:8px;}
+  .btn-ghost{background:#efefef;border:1px solid #ddd;padding:6px 10px;border-radius:8px;cursor:pointer;}
+  .btn-ghost:hover{background:#ddd;}
+  .square{display:inline-block;width:180px;height:120px;background:#fff2e1;border-radius:14px;padding:12px;margin:8px;text-align:center;vertical-align:top;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+  .status-pendente{color:#d35400;font-weight:600;}
+  .status-concluido{color:#27ae60;font-weight:600;}
+  .status-atend-aguardando{color:#f39c12;font-weight:600;}
+  .status-atend-em{color:#2980b9;font-weight:600;}
+  .status-atend-concluido{color:#27ae60;font-weight:600;}
+  /* LOGIN */
+  #login-section{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ffd29f,#fff2e1);display:flex;justify-content:center;align-items:center;}
+  #login-section .login-box{background:#fff;padding:28px;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.1);width:360px;text-align:center;}
+  #login-section input{width:100%;margin-bottom:12px;}
+  #login-section button{width:100%;padding:10px;}
+  /* FOOTER */
+  footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:center;padding:14px 0;font-weight:600;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login-section">
+  <div class="login-box">
+    <h2>Login - PetCare 🐾</h2>
+    <input id="loginEmail" placeholder="E-mail"/>
+    <input id="loginSenha" type="password" placeholder="Senha"/>
+    <button class="primary" onclick="login()">Entrar</button>
+    <p class="small muted" style="margin-top:10px;">Digite seu email e senha.</p>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+  <header>🐾 PetCare - Sistema Petshop</header>
+  <nav>
+    <button onclick="show('inicio')">🏠 Início</button>
+    <button onclick="show('usuarios')">👤 Usuários</button>
+    <button onclick="show('pets')">🐶 Pets</button>
+    <button onclick="show('produtos')">🧴 Serviços</button>
+    <button onclick="show('atendimentos')">💳 Atendimentos</button>
+    <button onclick="logout()">🚪 Sair</button>
+  </nav>
+
+  <main>
+    <!-- INÍCIO -->
+    <section id="inicio" class="active">
+      <div class="banner" id="banner">
+        <img src="https://images.pexels.com/photos/5732503/pexels-photo-5732503.jpeg" class="active" alt="pet1">
+        <img src="https://images.pexels.com/photos/3299907/pexels-photo-3299907.jpeg" alt="pet2">
+        <img src="https://images.pexels.com/photos/4587995/pexels-photo-4587995.jpeg" alt="pet3">
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <div class="square"><strong>Missão</strong><p>Oferecer cuidado de qualidade 🐾</p></div>
+        <div class="square"><strong>Visão</strong><p>Ser referência em PetCare 🐶</p></div>
+        <div class="square"><strong>Valores</strong><p>Amor, Responsabilidade, Dedicação 💖</p></div>
+      </div>
+    </section>
+
+    <!-- USUÁRIOS -->
+    <section id="usuarios">
+      <h2>👤 Usuários</h2>
+      <form id="formUsuario" onsubmit="return false">
+        <input type="hidden" id="usuarioId">
+        <input id="nomeUsuario" placeholder="Nome" required>
+        <input id="emailUsuario" placeholder="E-mail" required>
+        <input id="cpfUsuario" placeholder="CPF" required>
+        <div class="right">
+          <button class="primary" onclick="salvarUsuario()">Salvar</button>
+          <button type="button" onclick="resetUsuario()" class="btn-ghost">Cancelar</button>
+        </div>
+      </form>
+      <div class="card">
+        <h4 class="muted">Lista de Usuários</h4>
+        <table><thead><tr><th>Nome</th><th>Email</th><th>CPF</th><th style="width:140px">Ações</th></tr></thead><tbody id="tbodyUsuarios"></tbody></table>
+      </div>
+    </section>
+
+    <!-- PETS -->
+    <section id="pets">
+      <h2>🐶 Pets</h2>
+      <form id="formPet" onsubmit="return false">
+        <input type="hidden" id="petId">
+        <input id="nomePet" placeholder="Nome do Pet" required>
+        <input id="especiePet" placeholder="Espécie" required>
+        <input id="idadePet" placeholder="Idade" type="number" required>
+        <input id="cpfDonoPet" placeholder="CPF do Dono" required>
+        <div class="right">
+          <button class="primary" onclick="salvarPet()">Salvar</button>
+          <button type="button" onclick="resetPet()" class="btn-ghost">Cancelar</button>
+        </div>
+      </form>
+      <div class="card">
+        <h4 class="muted">Lista de Pets</h4>
+        <table><thead><tr><th>Nome</th><th>Espécie</th><th>Idade</th><th>Dono</th><th style="width:140px">Ações</th></tr></thead><tbody id="tbodyPets"></tbody></table>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="produtos">
+      <h2>🧴 Serviços e Produtos</h2>
+      <form id="formProduto" onsubmit="return false">
+        <select id="selectClienteProduto" required></select>
+        <select id="selectPetProduto" required></select>
+        <select id="selectServicoProduto">
+          <option>Banho</option>
+          <option>Tosa</option>
+          <option>Vacina</option>
+          <option>Consulta</option>
+        </select>
+        <input id="qtdProduto" type="number" value="1" min="1">
+        <select id="statusPagamentoProduto">
+          <option value="pendente">Pendente</option>
+          <option value="concluido">Concluído</option>
+        </select>
+        <div class="right">
+          <button class="primary" onclick="salvarCarrinho()">Salvar</button>
+          <button type="button" onclick="resetCarrinho()" class="btn-ghost">Cancelar</button>
+        </div>
+      </form>
+      <div class="card">
+        <h4 class="muted">Carrinho</h4>
+        <table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead>
+        <tbody id="tbodyCarrinho"></tbody></table>
+        <p class="muted">Total: R$ <span id="totalCarrinho">0.00</span></p>
+      </div>
+    </section>
+
+    <!-- ATENDIMENTOS -->
+    <section id="atendimentos">
+      <h2>💳 Atendimentos</h2>
+      <table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status</th></tr></thead>
+      <tbody id="tbodyAtendimentos"></tbody></table>
+    </section>
+  </main>
+
+  <footer>PetCare © 2025 - Todos os direitos reservados 🐾</footer>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabaseUrl = 'https://fsvbwyykwgjmbthavbnc.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdmJ3eXlrd2dqbWJ0aGF2Ym5jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMjUwMTgsImV4cCI6MjA3NzYwMTAxOH0.ZFnmOpTnoUEoG4XmOVRVC2I7rlrX1PZDWK-563VoQn4'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+/* ========== LOGIN ========== */
+function login(){
+  const email=document.getElementById("loginEmail").value;
+  const senha=document.getElementById("loginSenha").value;
+  // teste básico: qualquer email/senha deixa entrar
+  if(email && senha){
+    document.getElementById("login-section").style.display="none";
+    document.getElementById("app").style.display="block";
+    initApp();
+  } else alert("Preencha email e senha.");
+}
+
+function logout(){
+  document.getElementById("login-section").style.display="flex";
+  document.getElementById("app").style.display="none";
+}
+
+/* ========== TABS ========== */
+function show(id){
+  document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ========== BANNER ROTATE ========== */
+let bannerIndex=0;
+setInterval(()=>{
+  const imgs=document.querySelectorAll('#banner img');
+  imgs[bannerIndex].classList.remove('active');
+  bannerIndex=(bannerIndex+1)%imgs.length;
+  imgs[bannerIndex].classList.add('active');
+},5000);
+
+/* ========== INICIALIZAÇÃO ========== */
+async function initApp(){
+  await renderUsuarios();
+  await renderPets();
+  await renderClientesSelect();
+  await renderPetSelect();
+  await renderCarrinho();
+  await renderAtendimentos();
+}
+
+/* ===========================
+   CRUD Usuários, Pets, Carrinho
+   (Mesma implementação que te passei)
+   =========================== */
+let carrinhoEditId = null;
+
+async function renderUsuarios(){
+  const { data } = await supabase.from('usuarios').select('*');
+  const tbody = document.getElementById("tbodyUsuarios"); tbody.innerHTML='';
+  data.forEach(u=>{
+    tbody.innerHTML+=`<tr>
+      <td>${u.nome}</td>
+      <td>${u.email}</td>
+      <td>${u.cpf}</td>
+      <td>
+        <button class="btn-ghost" onclick="editarUsuario(${u.id})">Editar</button>
+        <button class="btn-ghost" onclick="excluirUsuario(${u.id})">Excluir</button>
+      </td>
+    </tr>`;
+  });
+}
+
+async function salvarUsuario(){
+  const id = document.getElementById("usuarioId").value;
+  const nome = document.getElementById("nomeUsuario").value;
+  const email = document.getElementById("emailUsuario").value;
+  const cpf = document.getElementById("cpfUsuario").value;
+  if(id){await supabase.from('usuarios').update({nome,email,cpf}).eq('id',id);}
+  else{await supabase.from('usuarios').insert([{nome,email,cpf}]);}
+  resetUsuario(); renderUsuarios();
+}
+
+function resetUsuario(){document.getElementById("usuarioId").value='';document.getElementById("nomeUsuario").value='';document.getElementById("emailUsuario").value='';document.getElementById("cpfUsuario").value='';}
+async function editarUsuario(id){const { data } = await supabase.from('usuarios').select('*').eq('id',id); const u=data[0]; document.getElementById("usuarioId").value=u.id; document.getElementById("nomeUsuario").value=u.nome; document.getElementById("emailUsuario").value=u.email; document.getElementById("cpfUsuario").value=u.cpf;}
+async function excluirUsuario(id){await supabase.from('usuarios').delete().eq('id',id); renderUsuarios();}
+
+async function renderPets(){const { data } = await supabase.from('pets').select('*'); const tbody=document.getElementById("tbodyPets"); tbody.innerHTML=''; data.forEach(p=>{tbody.innerHTML+=`<tr><td>${p.nome}</td><td>${p.especie}</td><td>${p.idade}</td><td>${p.cpf_dono}</td><td><button class="btn-ghost" onclick="editarPet(${p.id})">Editar</button><button class="btn-ghost" onclick="excluirPet(${p.id})">Excluir</button></td></tr>`})}
+async function salvarPet(){const id=document.getElementById("petId").value;const nome=document.getElementById("nomePet").value;const especie=document.getElementById("especiePet").value;const idade=document.getElementById("idadePet").value;const cpf_dono=document.getElementById("cpfDonoPet").value;if(id){await supabase.from('pets').update({nome,especie,idade,cpf_dono}).eq('id',id);}else{await supabase.from('pets').insert([{nome,especie,idade,cpf_dono}]);}resetPet(); renderPets();}
+function resetPet(){document.getElementById("petId").value='';document.getElementById("nomePet").value='';document.getElementById("especiePet").value='';document.getElementById("idadePet").value='';document.getElementById("cpfDonoPet").value='';}
+async function editarPet(id){const { data }=await supabase.from('pets').select('*').eq('id',id); const p=data[0]; document.getElementById("petId").value=p.id; document.getElementById("nomePet").value=p.nome; document.getElementById("especiePet").value=p.especie; document.getElementById("idadePet").value=p.idade; document.getElementById("cpfDonoPet").value=p.cpf_dono;}
+async function excluirPet(id){await supabase.from('pets').delete().eq('id',id); renderPets();}
+
+async function renderClientesSelect(){const { data }=await supabase.from('usuarios').select('*'); const sel=document.getElementById("selectClienteProduto"); sel.innerHTML=''; data.forEach(u=>sel.innerHTML+=`<option value="${u.id}">${u.nome}</option>`);}
+async function renderPetSelect(){const { data }=await supabase.from('pets').select('*'); const sel=document.getElementById("selectPetProduto"); sel.innerHTML=''; data.forEach(p=>sel.innerHTML+=`<option value="${p.id}">${p.nome}</option>`);}
+
+async function renderCarrinho(){const { data }=await supabase.from('carrinho').select('*'); const tbody=document.getElementById("tbodyCarrinho"); tbody.innerHTML=''; let total=0; for(let item of data){let { data: cliente } = await supabase.from('usuarios').select('nome').eq('id',item.cliente_id); let { data: pet } = await supabase.from('pets').select('nome').eq('id',item.pet_id); const valorUnit=item.valor||50; const valorTotal=valorUnit*item.qtd; total+=valorTotal; tbody.innerHTML+=`<tr><td>${cliente[0].nome}</td><td>${pet[0].nome}</td><td>${item.servico}</td><td>${item.qtd}</td><td>${valorTotal.toFixed(2)}</td><td class="status-${item.statusPagamento}">${item.statusPagamento}</td><td><button class="btn-ghost" onclick="editarCarrinho(${item.id})">Editar</button><button class="btn-ghost" onclick="excluirCarrinho(${item.id})">Excluir</button></td></tr>`;}
+document.getElementById("totalCarrinho").innerText=total.toFixed(2);}
+
+async function salvarCarrinho(){const cliente_id=document.getElementById("selectClienteProduto").value;const pet_id=document.getElementById("selectPetProduto").value;const servico=document.getElementById("selectServicoProduto").value;const qtd=parseInt(document.getElementById("qtdProduto").value);const statusPagamento=document.getElementById("statusPagamentoProduto").value;const valor=50;if(carrinhoEditId){await supabase.from('carrinho').update({cliente_id,pet_id,servico,qtd,statusPagamento,valor}).eq('id',carrinhoEditId);carrinhoEditId=null;}else{await supabase.from('carrinho').insert([{cliente_id,pet_id,servico,qtd,statusPagamento,valor}]);}resetCarrinho(); renderCarrinho();}
+function resetCarrinho(){document.getElementById("qtdProduto").value=1;carrinhoEditId=null;}
+async function editarCarrinho(id){const { data }=await supabase.from('carrinho').select('*').eq('id',id); const item=data[0]; document.getElementById("selectClienteProduto").value=item.cliente_id;document.getElementById("selectPetProduto").value=item.pet_id;document.getElementById("selectServicoProduto").value=item.servico;document.getElementById("qtdProduto").value=item.qtd;document.getElementById("statusPagamentoProduto").value=item.statusPagamento;carrinhoEditId=id;}
+async function excluirCarrinho(id){await supabase.from('carrinho').delete().eq('id',id); renderCarrinho();}
+
+async function renderAtendimentos(){const { data }=await supabase.from('carrinho').select('*'); const tbody=document.getElementById("tbodyAtendimentos"); tbody.innerHTML=''; for(let item of data){let { data: cliente } = await supabase.from('usuarios').select('nome').eq('id',item.cliente_id); let { data: pet } = await supabase.from('pets').select('nome').eq('id',item.pet_id); tbody.innerHTML+=`<tr><td>${cliente[0].nome}</td><td>${pet[0].nome}</td><td>${item.servico}</td><td>${item.qtd}</td><td>${item.valor*item.qtd}</td><td class="status-${item.statusPagamento}">${item.statusPagamento}</td></tr>`;}
+}
+</script>
+
+</body>
+</html>
