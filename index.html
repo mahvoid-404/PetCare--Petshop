@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>PetCare - Petshop</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{box-sizing:border-box;font-family:"Poppins",sans-serif;margin:0;padding:0}
 body{background:#fefaf6;color:#222;min-height:100vh;display:flex;flex-direction:column;}
@@ -32,36 +31,61 @@ th{background:#fff2e1;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:900px){.banner{height:180px} form input,select{min-width:120px}}
 .right{margin-left:auto;display:flex;gap:10px;}
-.chip{background:#fff2e1;padding:6px 12px;border-radius:999px;font-weight:600;margin-right:6px;}
-.small{font-size:13px;color:#666;}
-.note{background:#fffbe6;padding:10px;border-radius:8px;border:1px solid #fff2d1;margin-top:8px;}
 .btn-ghost{background:#efefef;border:1px solid #ddd;padding:6px 10px;border-radius:8px;cursor:pointer;}
 .btn-ghost:hover{background:#ddd;}
 .square{display:inline-block;width:180px;height:120px;background:#fff2e1;border-radius:14px;padding:12px;margin:8px;text-align:center;vertical-align:top;box-shadow:0 6px 18px rgba(0,0,0,0.08);}
-.status-pendente{color:#d35400;font-weight:600;}
-.status-concluido{color:#27ae60;font-weight:600;}
-.status-atend-aguardando{color:#f39c12;font-weight:600;}
-.status-atend-em{color:#2980b9;font-weight:600;}
-.status-atend-concluido{color:#27ae60;font-weight:600;}
 #login-section{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ffd29f,#fff2e1);display:flex;justify-content:center;align-items:center;}
 #login-section .login-box{background:#fff;padding:28px;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.1);width:360px;text-align:center;}
 #login-section input{width:100%;margin-bottom:12px;}
 #login-section button{width:100%;padding:10px;}
 footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:center;padding:14px 0;font-weight:600;margin-top:16px;}
+
+/* BOTÕES DE AÇÃO MELHORADOS */
+.btn-action {
+  background: #fff;
+  border: 1.5px solid;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  margin: 0 3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-edit { color: #3498db; border-color: #3498db; }
+.btn-edit:hover { background: #3498db; color: white; }
+
+.btn-delete { color: #e74c3c; border-color: #e74c3c; }
+.btn-delete:hover { background: #e74c3c; color: white; }
+
+.btn-finish { color: #27ae60; border-color: #27ae60; }
+.btn-finish:hover { background: #27ae60; color: white; }
 </style>
 </head>
 <body>
 <section id="login-section">
 <div class="login-box">
-<h2>Login - PetCare</h2>
+<h2>Login - PetCare🐾</h2>
 <input id="loginEmail" placeholder="E-mail"/>
 <input id="loginSenha" type="password" placeholder="Senha"/>
 <button class="primary" onclick="login()">Entrar</button>
+<button class="primary" style="margin-top:10px;background:#ffcc33;" onclick="irParaCadastroUsuario()">Cadastrar usuário</button>
 <p class="small muted" style="margin-top:10px;">Digite seu email e senha.</p>
 </div>
 </section>
+
 <div id="app" style="display:none;">
-<header>PetCare - Sistema Petshop</header>
+<header>🐾PetCare - Sistema Petshop</header>
 <nav>
 <button onclick="show('inicio')">🏠Início</button>
 <button onclick="show('usuarios')">👤Usuários</button>
@@ -71,6 +95,7 @@ footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:c
 <button onclick="logout()">🚪Sair</button>
 </nav>
 <main>
+
 <section id="inicio" class="active">
 <div class="banner" id="banner">
 <img src="https://images.pexels.com/photos/5732503/pexels-photo-5732503.jpeg" class="active" alt="pet1">
@@ -79,17 +104,19 @@ footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:c
 </div>
 <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
 <div class="square"><strong>Missão</strong><p>Oferecer cuidado de qualidade🐾</p></div>
-<div class="square"><strong>Visão</strong><p>Ser referência em PetCare😽</p></div>
+<div class="square"><strong>Visão</strong><p>Ser referência em PetCare🐶</p></div>
 <div class="square"><strong>Valores</strong><p>Amor, Responsabilidade, Dedicação💖</p></div>
 </div>
 </section>
+
 <section id="usuarios">
 <h2>👤Usuários</h2>
-<form id="formUsuario" onsubmit="return false">
+<form id="formUsuario" onsubmit="return false" style="display:grid;gap:10px;align-items:end;">
 <input type="hidden" id="usuarioId">
 <input id="nomeUsuario" placeholder="Nome" required>
 <input id="emailUsuario" placeholder="E-mail" required>
 <input id="cpfUsuario" placeholder="CPF" required>
+<input id="senhaUsuario" type="password" placeholder="Senha" required>
 <div class="right">
 <button class="primary" onclick="salvarUsuario()">Salvar</button>
 <button type="button" onclick="resetUsuario()" class="btn-ghost">Cancelar</button>
@@ -97,9 +124,10 @@ footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:c
 </form>
 <div class="card">
 <h4 class="muted">Lista de Usuários</h4>
-<table><thead><tr><th>Nome</th><th>Email</th><th>CPF</th><th style="width:140px">Ações</th></tr></thead><tbody id="tbodyUsuarios"></tbody></table>
+<table><thead><tr><th>Nome</th><th>Email</th><th>CPF</th><th style="width:110px">Ações</th></tr></thead><tbody id="tbodyUsuarios"></tbody></table>
 </div>
 </section>
+
 <section id="pets">
 <h2>🐶Pets</h2>
 <form id="formPet" onsubmit="return false">
@@ -115,9 +143,10 @@ footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:c
 </form>
 <div class="card">
 <h4 class="muted">Lista de Pets</h4>
-<table><thead><tr><th>Nome</th><th>Espécie</th><th>Idade</th><th>Dono</th><th style="width:140px">Ações</th></tr></thead><tbody id="tbodyPets"></tbody></table>
+<table><thead><tr><th>Nome</th><th>Espécie</th><th>Idade</th><th>Dono</th><th style="width:110px">Ações</th></tr></thead><tbody id="tbodyPets"></tbody></table>
 </div>
 </section>
+
 <section id="produtos">
 <h2>🧴Serviços e Produtos</h2>
 <form id="formProduto" onsubmit="return false">
@@ -136,24 +165,22 @@ footer{background:linear-gradient(90deg,#ffb347,#ffcc33);color:#fff;text-align:c
 </form>
 <div class="card">
 <h4 class="muted">Carrinho de Compras</h4>
-<table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead>
+<table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status</th><th style="width:140px">Ações</th></tr></thead>
 <tbody id="tbodyCarrinho"></tbody></table>
 <p class="muted" style="margin-top:6px;font-size:16px;">Total: <strong>R$ <span id="totalCarrinho">0.00</span></strong></p>
 </div>
 </section>
+
 <section id="atendimentos">
 <h2>💳Atendimentos</h2>
-<table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status Atendimento</th></tr></thead>
+<table><thead><tr><th>Cliente</th><th>Pet</th><th>Serviço</th><th>Qtd</th><th>Valor</th><th>Status</th></tr></thead>
 <tbody id="tbodyAtendimentos"></tbody></table>
 </section>
+
 </main>
-<footer>2025 PetCare - Desenvolvido por Maria Clara🌷👽</footer>
+<footer>2025 PetCare - Desenvolvido por Maria Clara 🌷👽</footer>
 </div>
 
-
-
-
-<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // === SUPABASE CONFIG ===
@@ -162,62 +189,28 @@ const supabase = window.supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdmJ3eXlrd2dqbWJ0aGF2Ym5jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMjUwMTgsImV4cCI6MjA3NzYwMTAxOH0.ZFnmOpTnoUEoG4XmOVRVC2I7rlrX1PZDWK-563VoQn4'
 );
 
-
-
-
 let usuarioLogado = null;
 let usuarios = [], pets = [], servicos = [], carrinho = [], atendimentos = [];
-
-
-
 
 // === LOGIN ===
 async function login() {
     const email = document.getElementById("loginEmail").value.trim();
     const senha = document.getElementById("loginSenha").value;
 
-
-
-
     if (!email || !senha) return alert("Preencha email e senha!");
 
-
-
-
-    const { data, error } = await supabase
-        .from('usuarios')
-        .select('*')
-        .eq('email', email)
-        .single();
-
-
-
-
-    if (error && error.code !== 'PGRST116') {
-        return alert("Erro ao acessar o banco.");
-    }
-
-
-
+    const { data, error } = await supabase.from('usuarios').select('*').eq('email', email).single();
+    if (error && error.code !== 'PGRST116') return alert("Erro ao acessar o banco.");
 
     if (!data) {
-        // Primeiro acesso: cria usuário
-        const { error: insertError } = await supabase
-            .from('usuarios')
-            .insert({ nome: email.split('@')[0], email, cpf: "00000000000", senha });
+        const { error: insertError } = await supabase.from('usuarios').insert({
+            nome: email.split('@')[0], email, cpf: "00000000000", senha
+        });
         if (insertError) return alert("Erro ao criar usuário.");
-        return login(); // tenta de novo
+        return login();
     }
 
-
-
-
-    if (data.senha !== senha) {
-        return alert("Senha incorreta!");
-    }
-
-
-
+    if (data.senha !== senha) return alert("Senha incorreta!");
 
     usuarioLogado = { id: data.id, nome: data.nome, email: data.email };
     document.getElementById("login-section").style.display = "none";
@@ -225,18 +218,19 @@ async function login() {
     await renderAll();
 }
 
-
-
-
-// === FUNÇÕES GERAIS ===
 function logout() { usuarioLogado = null; location.reload(); }
+
 function show(sec) {
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(sec).classList.add("active");
 }
 
-
-
+function irParaCadastroUsuario() {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    show('usuarios');
+    resetUsuario();
+}
 
 // Banner
 let bannerIndex = 0;
@@ -247,21 +241,16 @@ setInterval(() => {
     imgs[bannerIndex].classList.add("active");
 }, 4000);
 
-
-
-
 // === USUÁRIOS ===
 async function salvarUsuario() {
     const id = document.getElementById("usuarioId").value;
     const dados = {
-        nome: document.getElementById("nomeUsuario").value,
-        email: document.getElementById("emailUsuario").value,
-        cpf: document.getElementById("cpfUsuario").value
+        nome: document.getElementById("nomeUsuario").value.trim(),
+        email: document.getElementById("emailUsuario").value.trim(),
+        cpf: document.getElementById("cpfUsuario").value.trim(),
+        senha: document.getElementById("senhaUsuario").value
     };
     if (id) dados.id = id;
-
-
-
 
     const { error } = await supabase.from('usuarios').upsert(dados);
     if (error) alert("Erro: " + error.message);
@@ -272,21 +261,28 @@ async function salvarUsuario() {
     }
 }
 
-
-
-
 async function renderUsuarios() {
     const { data } = await supabase.from('usuarios').select('*');
     usuarios = data || [];
     const tbody = document.getElementById("tbodyUsuarios");
     tbody.innerHTML = "";
     usuarios.forEach(u => {
-        tbody.innerHTML += `<tr><td>${u.nome}</td><td>${u.email}</td><td>${u.cpf}</td><td><button class="btn-ghost" onclick="editUsuario('${u.id}')">Editar</button><button class="btn-ghost" onclick="deleteUsuario('${u.id}')">Excluir</button></td></tr>`;
+        tbody.innerHTML += `
+            <tr>
+                <td>${u.nome}</td>
+                <td>${u.email}</td>
+                <td>${u.cpf}</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="editUsuario(&quot;${u.id}&quot;)" title="Editar usuário">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteUsuario(&quot;${u.id}&quot;)" title="Excluir usuário">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
     });
 }
-
-
-
 
 function editUsuario(id) {
     const u = usuarios.find(x => x.id === id);
@@ -294,31 +290,26 @@ function editUsuario(id) {
     document.getElementById("nomeUsuario").value = u.nome;
     document.getElementById("emailUsuario").value = u.email;
     document.getElementById("cpfUsuario").value = u.cpf;
+    document.getElementById("senhaUsuario").value = u.senha || "";
 }
 
-
-
-
 async function deleteUsuario(id) {
-    if (confirm("Deseja realmente excluir este usuário?")) {
-        await supabase.from('usuarios').delete().eq('id', id);
+    if (!confirm("Deseja realmente excluir este usuário?")) return;
+    const { error } = await supabase.from('usuarios').delete().eq('id', id);
+    if (error) alert("Erro ao excluir: " + error.message);
+    else {
         await renderUsuarios();
         await renderClientesSelect();
     }
 }
-
-
-
 
 function resetUsuario() {
     document.getElementById("usuarioId").value = "";
     document.getElementById("nomeUsuario").value = "";
     document.getElementById("emailUsuario").value = "";
     document.getElementById("cpfUsuario").value = "";
+    document.getElementById("senhaUsuario").value = "";
 }
-
-
-
 
 // === PETS ===
 async function salvarPet() {
@@ -331,9 +322,6 @@ async function salvarPet() {
     };
     if (id) dados.id = id;
 
-
-
-
     const { error } = await supabase.from('pets').upsert(dados);
     if (error) alert("Erro: " + error.message);
     else {
@@ -343,28 +331,33 @@ async function salvarPet() {
     }
 }
 
-
-
-
 async function renderPets() {
     const { data: petsData } = await supabase.from('pets').select('*');
     const { data: usuariosData } = await supabase.from('usuarios').select('cpf, nome');
     pets = petsData || [];
     const mapaDono = Object.fromEntries(usuariosData.map(u => [u.cpf, u.nome]));
 
-
-
-
     const tbody = document.getElementById("tbodyPets");
     tbody.innerHTML = "";
     pets.forEach(p => {
         const dono = mapaDono[p.cpf_dono] || p.cpf_dono;
-        tbody.innerHTML += `<tr><td>${p.nome}</td><td>${p.especie}</td><td>${p.idade}</td><td>${dono}</td><td><button class="btn-ghost" onclick="editPet('${p.id}')">Editar</button><button class="btn-ghost" onclick="deletePet('${p.id}')">Excluir</button></td></tr>`;
+        tbody.innerHTML += `
+            <tr>
+                <td>${p.nome}</td>
+                <td>${p.especie}</td>
+                <td>${p.idade}</td>
+                <td>${dono}</td>
+                <td>
+                    <button class="btn-action btn-edit" onclick="editPet(&quot;${p.id}&quot;)" title="Editar pet">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deletePet(&quot;${p.id}&quot;)" title="Excluir pet">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
     });
 }
-
-
-
 
 function editPet(id) {
     const p = pets.find(x => x.id === id);
@@ -375,19 +368,15 @@ function editPet(id) {
     document.getElementById("cpfDonoPet").value = p.cpf_dono;
 }
 
-
-
-
 async function deletePet(id) {
-    if (confirm("Deseja realmente excluir este pet?")) {
-        await supabase.from('pets').delete().eq('id', id);
+    if (!confirm("Deseja realmente excluir este pet?")) return;
+    const { error } = await supabase.from('pets').delete().eq('id', id);
+    if (error) alert("Erro ao excluir: " + error.message);
+    else {
         await renderPets();
         await renderPetSelect();
     }
 }
-
-
-
 
 function resetPet() {
     document.getElementById("petId").value = "";
@@ -396,9 +385,6 @@ function resetPet() {
     document.getElementById("idadePet").value = "";
     document.getElementById("cpfDonoPet").value = "";
 }
-
-
-
 
 // === SERVIÇOS ===
 async function carregarServicos() {
@@ -411,9 +397,6 @@ async function carregarServicos() {
     });
 }
 
-
-
-
 // === SELECTS ===
 async function renderClientesSelect() {
     const { data } = await supabase.from('usuarios').select('cpf, nome');
@@ -422,9 +405,6 @@ async function renderClientesSelect() {
     data.forEach(u => sel.innerHTML += `<option value='${u.cpf}'>${u.nome}</option>`);
 }
 
-
-
-
 async function renderPetSelect() {
     const { data } = await supabase.from('pets').select('id, nome');
     const sel = document.getElementById("selectPetProduto");
@@ -432,38 +412,41 @@ async function renderPetSelect() {
     data.forEach(p => sel.innerHTML += `<option value='${p.id}'>${p.nome}</option>`);
 }
 
-
-
-
 // === CARRINHO ===
-function adicionarCarrinho() {
+async function adicionarCarrinho() {
     const cpfCliente = document.getElementById("selectClienteProduto").value;
     const idPet = document.getElementById("selectPetProduto").value;
     const serv = document.getElementById("selectServicoProduto").value;
     const qtd = parseInt(document.getElementById("qtdProduto").value);
     const status = document.getElementById("statusPagamentoProduto").value;
 
-
-
-
     if (!cpfCliente || !idPet || !serv || !qtd) return alert("Preencha todos os campos!");
-
-
-
 
     const servico = servicos.find(s => s.nome === serv);
     const valor = servico.valor * qtd;
+    const item = { cpfCliente, idPet, serv, qtd, valor, status };
 
-
-
-
-    carrinho.push({ cpfCliente, idPet, serv, qtd, valor, status });
-    resetCarrinho();
-    renderCarrinho();
+    if (status === "concluido") {
+        const { error } = await supabase.from('atendimentos').insert({
+            cpf_cliente: item.cpfCliente,
+            id_pet: item.idPet,
+            servico_nome: item.serv,
+            quantidade: item.qtd,
+            valor_total: item.valor,
+            status_pagamento: item.status
+        });
+        if (error) alert("Erro: " + error.message);
+        else {
+            alert("Atendimento concluído com sucesso!");
+            resetCarrinho();
+            await renderAtendimentos();
+        }
+    } else {
+        carrinho.push(item);
+        resetCarrinho();
+        renderCarrinho();
+    }
 }
-
-
-
 
 function renderCarrinho() {
     const tbody = document.getElementById("tbodyCarrinho");
@@ -473,23 +456,36 @@ function renderCarrinho() {
         const cliente = usuarios.find(u => u.cpf === c.cpfCliente)?.nome || "";
         const pet = pets.find(p => p.id === c.idPet)?.nome || "";
         total += c.valor;
-        tbody.innerHTML += `<tr><td>${cliente}</td><td>${pet}</td><td>${c.serv}</td><td>${c.qtd}</td><td>R$ ${c.valor.toFixed(2)}</td><td>${c.status}</td><td><button class="btn-ghost" onclick="finalizarCarrinho(${index})">Finalizar</button><button class="btn-ghost" onclick="editCarrinho(${index})">Editar</button><button class="btn-ghost" onclick="deleteCarrinho(${index})">Excluir</button></td></tr>`;
+        tbody.innerHTML += `
+            <tr>
+                <td>${cliente}</td>
+                <td>${pet}</td>
+                <td>${c.serv}</td>
+                <td>${c.qtd}</td>
+                <td>R$ ${c.valor.toFixed(2)}</td>
+                <td>${c.status === 'pendente' ? 'Aguardando' : 'Concluído'}</td>
+                <td>
+                    <button class="btn-action btn-finish" onclick="finalizarCarrinho(${index})" title="Finalizar atendimento">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn-action btn-edit" onclick="editCarrinho(${index})" title="Editar item">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick="deleteCarrinho(${index})" title="Excluir do carrinho">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
     });
     document.getElementById("totalCarrinho").innerText = total.toFixed(2);
 }
 
-
-
-
 function deleteCarrinho(idx) {
-    if (confirm("Deseja realmente excluir este pedido do carrinho?")) {
+    if (confirm("Deseja realmente excluir este item do carrinho?")) {
         carrinho.splice(idx, 1);
         renderCarrinho();
     }
 }
-
-
-
 
 function editCarrinho(idx) {
     const c = carrinho[idx];
@@ -500,11 +496,8 @@ function editCarrinho(idx) {
     document.getElementById("statusPagamentoProduto").value = c.status;
     carrinho.splice(idx, 1);
     renderCarrinho();
-    alert("Edite os campos e clique em Adicionar para confirmar a alteração.");
+    alert("Edite e clique em 'Adicionar' para salvar.");
 }
-
-
-
 
 async function finalizarCarrinho(idx) {
     const c = carrinho[idx];
@@ -516,16 +509,13 @@ async function finalizarCarrinho(idx) {
         valor_total: c.valor,
         status_pagamento: c.status
     });
-    if (error) alert("Erro ao finalizar: " + error.message);
+    if (error) alert("Erro: " + error.message);
     else {
         carrinho.splice(idx, 1);
         renderCarrinho();
         await renderAtendimentos();
     }
 }
-
-
-
 
 function resetCarrinho() {
     document.getElementById("selectClienteProduto").value = "";
@@ -534,9 +524,6 @@ function resetCarrinho() {
     document.getElementById("qtdProduto").value = "1";
     document.getElementById("statusPagamentoProduto").value = "pendente";
 }
-
-
-
 
 // === ATENDIMENTOS ===
 async function renderAtendimentos() {
@@ -547,12 +534,17 @@ async function renderAtendimentos() {
     atendimentos.forEach(a => {
         const cliente = usuarios.find(u => u.cpf === a.cpf_cliente)?.nome || "";
         const pet = pets.find(p => p.id === a.id_pet)?.nome || "";
-        tbody.innerHTML += `<tr><td>${cliente}</td><td>${pet}</td><td>${a.servico_nome}</td><td>${a.quantidade}</td><td>R$ ${parseFloat(a.valor_total).toFixed(2)}</td><td class="status-concluido">Concluído</td></tr>`;
+        tbody.innerHTML += `
+            <tr>
+                <td>${cliente}</td>
+                <td>${pet}</td>
+                <td>${a.servico_nome}</td>
+                <td>${a.quantidade}</td>
+                <td>R$ ${parseFloat(a.valor_total).toFixed(2)}</td>
+                <td class="status-concluido">Concluído</td>
+            </tr>`;
     });
 }
-
-
-
 
 // === RENDER ALL ===
 async function renderAll() {
@@ -567,8 +559,3 @@ async function renderAll() {
 </script>
 </body>
 </html>
-
-
-
-
-
