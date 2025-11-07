@@ -5,7 +5,10 @@
 O **PetCare** é um sistema web desenvolvido para gerenciar um petshop, permitindo **cadastro de usuários, pets e serviços**, com **login seguro** e **armazenamento de dados em nuvem**.
 
 ---
+🌐 Acesse o Site Online
+👉 Clique aqui para acessar o PetCare-PetShop [GitHub Pages](https://mahvoid-404.github.io/PetCare--Petshop/)  
 
+---
 ## Tecnologias Utilizadas
 
 - **HTML5** – estrutura do site  
